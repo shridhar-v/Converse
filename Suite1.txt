@@ -1,0 +1,10 @@
+*** Settings ***
+Resource          resource.txt
+
+*** Test Cases ***
+Flow1
+    Open Bozai Studio
+    Login
+    Open Campaign    a
+    Open Ad    bsdr
+    Add    text

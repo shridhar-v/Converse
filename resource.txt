@@ -1,0 +1,42 @@
+*** Settings ***
+Documentation     A resource file containing the application specific keywords
+...               that create our own domain specific language. This resource
+...               implements keywords for testing HTML version of the test
+...               application.
+Library           Selenium2Custom.py
+
+*** Variables ***
+${BASE_URL}       http://teststudio.bonzai.ad/
+${BROWSER}        chrome
+
+*** Keywords ***
+Open Bozai Studio
+    [Documentation]    Opens google news base page
+    Open Browser    ${BASE_URL}    ${BROWSER}
+    Title Should Be    Bonzai Studio
+    Maximize Browser Window
+    Wait Until Page Contains    I can't access my account, please help    15
+
+Login
+    Input Text    idUser    test_user
+    Input Password    password    b0n2a1
+    Click Button    css=#signInBtn
+    Wait Until Page Contains    Campaigns
+    Wait Until Page Contains    \ \ \ \ \ \ \ CREATE NEW CAMPAIGN \ \ \ \ \ \
+
+Open Campaign
+    [Arguments]    ${campaign}
+    Log    Opening Campaign with the title ${campaign} (locator: css=div.campaignList div[title='${campaign}'])
+    Click Element    css=div.campaignList div[title='${campaign}']
+
+Open Ad
+    [Arguments]    ${ad}    # Title of the Advertisement
+    Wait Until Page Contains    Sort by
+    Log    Opening Ad with the title ${ad} (locator: css=div.adDetails div[title='${ad}'])
+    Click Element    css=div.adDetails div[title='${ad}']
+    Switch To Last Window
+    Wait Until Page Contains    SOCIAL ELEMENTS
+
+Add
+    [Arguments]    ${type}
+    Drag And Drop    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper
