@@ -1,0 +1,17 @@
+*** Settings ***
+Resource          resource.txt
+
+*** Keywords ***
+UserFlow_1
+    Add    text
+    Set Label    Hello User1
+    Add    button
+    Set Label    Ok
+    Open/Close Page Tool
+    Duplicate Page    page_1
+    Duplicate Page    copyof_page_1
+    Delete Page    copyof_copyof_page_1
+    Delete Page    copyof_page_1
+    Select Page    page_1
+    Open/Close Page Tool
+    Delete Element    Ok

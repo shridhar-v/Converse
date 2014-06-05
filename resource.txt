@@ -40,3 +40,38 @@ Open Ad
 Add
     [Arguments]    ${type}
     Drag And Drop    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper
+
+Open/Close Page Tool
+    Click Element    css=.dummyPageToolButton
+    Sleep    3s
+    Wait Until Page Contains    Page Tools
+
+Duplicate Page
+    [Arguments]    ${page_name}
+    Click Element    //div[.='${page_name}']/..//button[contains(@class,'Duplicate')]
+    Sleep    2s
+
+Delete Page
+    [Arguments]    ${page_name}    ${sleep}=2s
+    Mouse Over    //div[@class='mCSB_container mCS_no_scrollbar']//div[.='${page_name}']
+    Click Element    //div[.='${page_name}']/..//button[contains(@class,'Delete')]
+    Sleep    ${sleep}
+
+Delete Element
+    [Arguments]    ${label}
+    Select Element    ${label}
+    Press Key    xpath=//*[.='${label}' and @id]    127
+    Sleep    2s
+
+Select Element
+    [Arguments]    ${label}
+    Focus    xpath=//*[.='${label}' and @id]
+    Sleep    1s
+
+Set Label
+    [Arguments]    ${labelText}
+    Input Text    xpath=//*[@key='label' or @key='labelTextArea']    ${labelText}
+
+Select Page
+    [Arguments]    ${page_name}
+    Click Element    //div[@class='mCSB_container mCS_no_scrollbar']//div[.='${page_name}']
