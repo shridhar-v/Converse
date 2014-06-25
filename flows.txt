@@ -15,3 +15,7 @@ UserFlow_1
     Select Page    page_1
     Open/Close Page Tool
     Delete Element    Ok
+
+UserFlow_3
+    Create New Campaign    Test Selenium    Travel    Retail
+    Create New Ad    Selenium Ad    mobile

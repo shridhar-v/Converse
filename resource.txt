@@ -22,7 +22,7 @@ Login
     Input Password    password    b0n2a1
     Click Button    css=#signInBtn
     Wait Until Page Contains    Campaigns
-    Wait Until Page Contains    \ \ \ \ \ \ \ CREATE NEW CAMPAIGN \ \ \ \ \ \
+    Wait Until Page Contains    \ \ \ \ \ \ \ CREATE NEW CAMPAIGN \ \ \ \ \ \    20s
 
 Open Campaign
     [Arguments]    ${campaign}
@@ -75,3 +75,29 @@ Set Label
 Select Page
     [Arguments]    ${page_name}
     Click Element    //div[@class='mCSB_container mCS_no_scrollbar']//div[.='${page_name}']
+
+Create New Campaign
+    [Arguments]    ${campaignName}    @{campaignTypes}
+    Click Button    btn-new-camp
+    Wait Until Page Contains     CREATE CAMPAIGN
+    Input Text    inputCampName    ${campaignName}
+    Click Element    css=div.dummySectorMulti
+    :FOR    ${type}    IN    @{campaignTypes}
+    \    Click Element    xpath=//span[.="${type}"]
+    Click Element    inputCampName
+    Click Button    btn-submit-camp
+    Wait Until Page Contains     \ \ \ \ \ \ \ CREATE NEW AD \ \ \ \ \ \
+    Sleep    2s
+
+Create New Ad
+    [Arguments]    ${adName}    ${deviceType}
+    Click Button    btn-new-ad
+    Sleep    3s
+    Click Element    css=.blank_layout
+    Sleep    5s
+    Input Text    css=.dummyBlankAdNameInput    ${adName}
+    Sleep    3s
+    Click Element    css=.radio-inline input[devicetype="${deviceType}"]
+    Click Element     css=.create_ad
+    Sleep    3s
+    Switch To Last Window

@@ -6,6 +6,4 @@ Resource          flows.txt
 Test
     Open Bozai Studio
     Login
-    Open Campaign    a
-    Open Ad    bsdr
-    UserFlow_1
+    UserFlow_3
