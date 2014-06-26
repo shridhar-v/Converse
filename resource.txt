@@ -38,9 +38,10 @@ Open Ad
     Wait Until Page Contains    SOCIAL ELEMENTS
 
 Add
-    [Arguments]    ${type}
-    Drag And Drop    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper
-    Drag Drop With Offset To Element    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper    5    5
+    [Arguments]    ${type}    ${x_loc}=1    ${y_loc}=1
+    # Drag And Drop    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper
+    Drag Drop With Offset To Element    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper    ${x_loc}    ${y_loc}
+    Sleep    3s
 
 Open/Close Page Tool
     Click Element    css=.dummyPageToolButton
@@ -80,14 +81,14 @@ Select Page
 Create New Campaign
     [Arguments]    ${campaignName}    @{campaignTypes}
     Click Button    btn-new-camp
-    Wait Until Page Contains     CREATE CAMPAIGN
+    Wait Until Page Contains    CREATE CAMPAIGN
     Input Text    inputCampName    ${campaignName}
     Click Element    css=div.dummySectorMulti
-    :FOR    ${type}    IN    @{campaignTypes}
+    : FOR    ${type}    IN    @{campaignTypes}
     \    Click Element    xpath=//span[.="${type}"]
     Click Element    inputCampName
     Click Button    btn-submit-camp
-    Wait Until Page Contains     \ \ \ \ \ \ \ CREATE NEW AD \ \ \ \ \ \
+    Wait Until Page Contains    \ \ \ \ \ \ \ CREATE NEW AD \ \ \ \ \ \
     Sleep    2s
 
 Create New Ad
@@ -99,6 +100,7 @@ Create New Ad
     Input Text    css=.dummyBlankAdNameInput    ${adName}
     Sleep    3s
     Click Element    css=.radio-inline input[devicetype="${deviceType}"]
-    Click Element     css=.create_ad
+    Click Element    css=.create_ad
     Sleep    3s
     Switch To Last Window
+    Sleep    5s

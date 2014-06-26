@@ -19,3 +19,5 @@ UserFlow_1
 UserFlow_3
     Create New Campaign    Test Selenium    Travel    Retail
     Create New Ad    Selenium Ad    mobile
+    Add    text    2    2
+    Add    button    4    4
