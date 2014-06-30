@@ -1,4 +1,10 @@
 from Selenium2Library import Selenium2Library
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common import keys
+import random
+import sys
+
+
 
 class Selenium2Custom(Selenium2Library):
     """
@@ -41,15 +47,49 @@ class Selenium2Custom(Selenium2Library):
         source = self._element_find(locator_source, True, False)
         target = self._element_find(locator_target, True, False)
         
+
+        elms = self._element_find("css=.dummyCanvasWrapper *[id]", False, False)
+        len(elms)
+        elements = {}
+        
+        for e in elms:
+            elements[e.get_attribute("id")]=e
+        
         p1 = source.location
+        d1 = source.size
         p2 = target.location
         d2 = target.size
                     
-        x_offset = 10 #(d2['width']/10)*x_by_10
-        y_offset = 10 #(d2['height']/10)*y_by_10
+        x_offset = ((int(d2['width'])/10)*(int(x_by_10)))-int((d1['width'])/2)
+        y_offset = ((int(d2['height'])/10)*(int(y_by_10)))-int((d1['height'])/2)
+        offset = {'x':int(p2['x']-p1['x']),'y':int(p2['y']-p1['y'])}
+        self.drag_and_drop_by_offset(locator_source, offset['x']+x_offset, offset['y']+y_offset)
         
-        offset = {'x':p2['x']-p1['x'],'y':p2['y']-p1['y']}
-        self.drag_and_drop_by_offset(locator_source, offset['x']+x_offset, offset['y']+y_offset)         
+        elms1 = self._element_find("css=.dummyCanvasWrapper *[id]", False, False)
+        
+        for e in elms1:
+            if e.get_attribute("id") not in elements.keys(): return e.get_attribute("id")
+        return elements.keys()
+
+    def test_my_key(self):
+        elms = self._element_find("css=#ires a[id]", False, False)
+        ids = {}
+        for e in elms:
+            ids[e.get_attribute("id")] = e
+        if "anewID" not in ids.keys():
+            ids["anewID"] = None
+        return str(ids)
+
+    def click_multiple_with_ctrl_down(self, locator,numbers=5):
+        
+        elements = self._element_find(locator, False, True)
+        actions = ActionChains(self._current_browser())
+        actions.key_down(keys.Keys.CONTROL).perform()
+        sampl = random.sample(elements,int(numbers))
+        for e in sampl:
+            e.click()
+        actions.key_up(keys.Keys.CONTROL).perform()
+          
         
           
         

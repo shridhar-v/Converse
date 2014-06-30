@@ -40,8 +40,12 @@ Open Ad
 Add
     [Arguments]    ${type}    ${x_loc}=1    ${y_loc}=1
     # Drag And Drop    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper
-    Drag Drop With Offset To Element    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper    ${x_loc}    ${y_loc}
+    ${id}    Drag Drop With Offset To Element    css=.eleList [restype='${type}']    css=.dummyCanvasWrapper    ${x_loc}    ${y_loc}
     Sleep    3s
+    Log    ${id}
+    ${count}    Get Matching Xpath Count    //div[@class='dummyCanvasWrapper']//*[@id]
+    Log    ${count}
+    [Return]    ${id}
 
 Open/Close Page Tool
     Click Element    css=.dummyPageToolButton
@@ -60,15 +64,16 @@ Delete Page
     Sleep    ${sleep}
 
 Delete Element
-    [Arguments]    ${label}
-    Select Element    ${label}
-    Press Key    xpath=//*[.='${label}' and @id]    127
+    [Arguments]    ${element_id}
+    Select Element    ${element_id}
+    Sleep    2s
+    Press Key    ${element_id}    \\127
     Sleep    2s
 
 Select Element
-    [Arguments]    ${label}
-    Focus    xpath=//*[.='${label}' and @id]
-    Sleep    1s
+    [Arguments]    ${element_id}
+    Click Element    ${element_id}
+    Sleep    3s
 
 Set Label
     [Arguments]    ${labelText}
@@ -104,3 +109,13 @@ Create New Ad
     Sleep    3s
     Switch To Last Window
     Sleep    5s
+
+Add Assets
+    [Arguments]    ${coverId}
+    Select Element    ${coverId}
+    Sleep    2s
+    Click Element    css=.dummyAddMultipleAssets
+    Sleep    5s
+    Click Multiple With Ctrl Down    css=.gridimg.dummyImageCont
+    Click Element    css=.galleryBtns.dummyAddfiles
+    Sleep    3s

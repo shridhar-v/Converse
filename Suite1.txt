@@ -7,3 +7,8 @@ Test
     Open Bozai Studio
     Login
     UserFlow_3
+
+Temp
+    Open Browser    https://www.google.co.in/#q=selenium
+    ${ret}    Test My Key
+    Log    ${ret}

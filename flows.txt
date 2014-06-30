@@ -1,6 +1,10 @@
 *** Settings ***
 Resource          resource.txt
 
+*** Variables ***
+${button1_id}     ${EMPTY}
+${button2_id}     ${EMPTY}
+
 *** Keywords ***
 UserFlow_1
     Add    text
@@ -19,6 +23,13 @@ UserFlow_1
 UserFlow_3
     Create New Campaign    Test Selenium    Travel    Retail
     Create New Ad    Selenium Ad    mobile
-    Add    text    2    2
-    Add    button    5    5
-    Add    button    8    8
+    ${button1_id}    Add    button
+    ${button2_id}    Add    button    5    5
+    ${text1_id}    Add    text    8    8
+    ${cover1_id}    Add    coverflow    5    7
+    ${touch1_id}    Add    toucharea    4    6
+    ${swipeGallery_id}    Add    swipeGallery    6    1
+    ${stack_id}    Add    imagestack    6    6
+    Add Assets    ${cover1_id}
+    Add Assets    ${stack_id}
+    Add Assets    ${swipeGallery_id}
